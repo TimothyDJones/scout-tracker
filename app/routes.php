@@ -15,3 +15,12 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::model('scouts', 'Scout');
+Route::model('adults', 'Adults');
+
+Route::get('scouts/court-of-honor', array('as' => 'court-of-honor', 'uses' => 'ScoutsController@coh'));
+Route::get('scouts/search', array('as' => 'search', 'uses' => 'ScoutsController@search'));
+
+Route::resource('scouts', 'ScoutsController');
+Route::resource('adults', 'AdultsController');
