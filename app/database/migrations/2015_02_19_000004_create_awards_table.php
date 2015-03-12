@@ -24,7 +24,7 @@ class CreateAwardsTable extends Migration {
                         $table->unsignedInteger('primary_counselor_id')->nullable();
                         $table->foreign('primary_counselor_id')
                                 ->references('id')
-                                ->on('adults')
+                                ->on('persons')
                                 ->onDelete('cascade')
                                 ->onUpdate('cascade');                        
                         $table->date('completed');
@@ -57,7 +57,7 @@ class CreateAwardsTable extends Migration {
 	public function down()
 	{
                 DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-                Schema::dropIfExists('scouts');
+                Schema::dropIfExists('awards');
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
