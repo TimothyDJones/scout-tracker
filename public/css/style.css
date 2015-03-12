@@ -92,7 +92,7 @@ header .navbar-collapse  ul.navbar-nav {
     margin-right: 0;
 }
 header .navbar {
-min-height: 70px;
+min-height: 30px;
 padding: 18px 0;
 background: #1891EC;
 }
@@ -130,7 +130,7 @@ header .navbar-default .navbar-nav > .open > a:focus {
 
 
 header .navbar {
-    min-height: 70px; 
+    min-height: 30px; 
 	padding:18px 0;
 }
 
@@ -158,8 +158,8 @@ header  .navbar-nav > li > a {
 }
 
 header .nav .caret {
-    border-bottom-color: #f5f5f5;
-    border-top-color: #f5f5f5;
+    border-bottom-color: #51d466; // #f5f5f5;
+    border-top-color: #51d466; // #f5f5f5;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
