@@ -2,27 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Adult extends \LaravelBook\Ardent\Ardent {
+class Adult extends Person {
     
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'adults';    
+    public function scouts() {
+        return $this->belongsToMany('Scout', 'adult_scout', 'scout_id');
+    }
     
-        public static $rules = array(
-            'birth_date'    => 'date',
-        );
-
-	protected $fillable = array('person_id', 'birth_date', );
-	
-	public function person() {
-		return $this->belongsTo('Person');
-	}
-	
-	public function isAdminUser() {
-		return $this->admin_user_ind;
-	}
-
+    
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePersonsTable extends Migration {
+class CreateAdultScoutTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,20 +12,19 @@ class CreatePersonsTable extends Migration {
 	 */
 	public function up()
 	{
-                Schema::create('persons', function(Blueprint $table) {
+                Schema::create('adult_scout', function(Blueprint $table) {
                         $table->increments('id');
-                        $table->string('bsa_id', 15)->nullable();
-                        $table->string('first_name', 20);
-                        $table->string('last_name', 30);
-                        $table->string('email_address', 50)->nullable();
-                        $table->string('password')->default('-999');
-                        $table->string('home_phone', 20)->nullable();
-                        $table->string('cell_phone', 20)->nullable();
-                        $table->date('birth_date')->nullable();
-                        $table->unsignedInteger('address_id');
-                        $table->foreign('address_id')
+                        $table->enum('relationship', array('Scout', 'Mother', 'Father', 'Other'))->default('Scout');
+                        $table->unsignedInteger('scout_id');   // Scout who earned the award.
+                        $table->foreign('scout_id')
                                 ->references('id')
-                                ->on('addresses')
+                                ->on('persons')
+                                ->onDelete('cascade')
+                                ->onUpdate('cascade');
+                        $table->unsignedInteger('adult_id');     // Adult who signs off on award.
+                        $table->foreign('adult_id')
+                                ->references('id')
+                                ->on('persons')
                                 ->onDelete('cascade')
                                 ->onUpdate('cascade');                        
                         $table->timestamps();
@@ -45,7 +44,7 @@ class CreatePersonsTable extends Migration {
 	public function down()
 	{
                 DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-                Schema::dropIfExists('persons');
+                Schema::dropIfExists('adult_scout');
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 

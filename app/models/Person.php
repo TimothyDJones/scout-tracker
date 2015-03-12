@@ -5,7 +5,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Person extends \LaravelBook\Ardent\Ardent 
+class Person extends BaseModel
         implements UserInterface, RemindableInterface {
 
 	//use UserTrait, RemindableTrait;
@@ -16,6 +16,9 @@ class Person extends \LaravelBook\Ardent\Ardent
 	 * @var string
 	 */
 	protected $table = 'persons';
+        
+        protected $stiClassField = 'class_name';
+        protected $stiBaseClass = 'Product';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -58,14 +61,6 @@ class Person extends \LaravelBook\Ardent\Ardent
         public function address() {
             return $this->hasOne('Address');
         }
-        
-        public function adults() {
-            return $this->hasOne('Adult');
-        }
-        
-        public function scouts() {
-            return $this->hasOne('Scout');
-        }        
         
         public function getAuthIdentifier() {
             return $this->getKey();

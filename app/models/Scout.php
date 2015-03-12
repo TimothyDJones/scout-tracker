@@ -2,23 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Scout extends \LaravelBook\Ardent\Ardent {
+class Scout extends Person {
     
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'scouts';    
+    public function ranks() {
+        $this->belongsToMany('Rank');
+    }
     
-        public static $rules = array(
-            'birth_date'    => 'date',
-        );
-
-	protected $fillable = array('person_id', 'birth_date', );
-	
-	public function person() {
-		return $this->belongsTo('Person');
-	}
-
 }
