@@ -10,7 +10,8 @@
 		"laravelbook/ardent": "2.4.*",
 		"anahkiasen/former": "1.*@dev",
 		"pragmarx/steroids": "0.*",
-		"raveren/kint": "0.9.*"
+		"raveren/kint": "0.9.*",
+                "barryvdh/laravel-debugbar": "1.*"
 	},
 	"autoload": {
 		"classmap": [
