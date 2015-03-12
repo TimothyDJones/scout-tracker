@@ -16,7 +16,7 @@ class CreatePositionsTable extends Migration {
                         $table->increments('id');
                         $table->string('position_code', 5)->index();
                         $table->string('position_name', 30);
-                        $table->string('position_description')->nullable();
+                        $table->string('position_description', 1024)->nullable();
                         $table->enum('type', array('Adult', 'Scout'))->default('Scout');
                         $table->timestamps();
                 });                

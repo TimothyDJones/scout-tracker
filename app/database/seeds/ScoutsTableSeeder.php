@@ -2,6 +2,7 @@
 
 // Composer: "fzaninotto/faker": "v1.4.0"
 use Faker\Factory as Faker;
+use Carbon\Carbon as Carbon;
 
 class ScoutsTableSeeder extends Seeder {
 
@@ -25,7 +26,8 @@ class ScoutsTableSeeder extends Seeder {
                         'password' => NULL,
                         'home_phone' => '(918) 123 4567',
                         'cell_phone' => NULL,
-                        'birth_date' => Carbon::createFromDate(2003, 5, 21),
+                        'birth_date' => NULL, //Carbon::createFromDate(2003, 5, 21),
+                        'address_id' => 1,
                         'created_at' => new DateTime,
                         'updated_at' => new DateTime,),
                     array( 'first_name' => 'Tom',
@@ -36,7 +38,8 @@ class ScoutsTableSeeder extends Seeder {
                         'password' => NULL,
                         'home_phone' => '(918) 555 1234',
                         'cell_phone' => NULL,
-                        'birth_date' => Carbon::createFromDate(2005, 7, 3),
+                        'birth_date' => NULL, //Carbon::createFromDate(2005, 7, 3),
+                        'address_id' => 2,
                         'created_at' => new DateTime,
                         'updated_at' => new DateTime,),
                     array( 'first_name' => 'Aaron',
@@ -47,7 +50,8 @@ class ScoutsTableSeeder extends Seeder {
                         'password' => NULL,
                         'home_phone' => '(918) 634 3333',
                         'cell_phone' => '(918) 720 8888',
-                        'birth_date' => Carbon::createFromDate(2001, 1, 31),
+                        'birth_date' => NULL, //Carbon::createFromDate(2001, 1, 31),
+                        'address_id' => 3,
                         'created_at' => new DateTime,
                         'updated_at' => new DateTime,),  
                     array( 'first_name' => 'Zachary',
@@ -58,12 +62,13 @@ class ScoutsTableSeeder extends Seeder {
                         'password' => NULL,
                         'home_phone' => '(918) 634 3333',
                         'cell_phone' => '(918) 720 8888',
+                        'address_id' => 4,
                         'birth_date' => NULL,
                         'created_at' => new DateTime,
                         'updated_at' => new DateTime,),  
-                    array(),
 		); 
                 
+                /*
                 for ( $i = 0; $i < 10; $i++ ) {
                     $faker = Faker::create();
                     $scouts[] = array(
@@ -78,7 +83,7 @@ class ScoutsTableSeeder extends Seeder {
                         'created_at' => new DateTime,
                         'updated_at' => new DateTime,                        
                     );
-                }
+                } */
 		
 		// Uncomment the below to run the seeder
 		DB::table('persons')->insert($scouts);

@@ -16,8 +16,8 @@ class AddressesTableSeeder extends Seeder {
 			]);
 		}*/
             
-               for ( $i = 0; $i < 10; $i++ ) {
-                    $faker = Faker::create();
+                $faker = Faker::create();
+                for ( $i = 0; $i < 20; $i++ ) {
                     $addresses[] = array(
                         'addr1' => $faker->buildingNumber . ' ' . $faker->streetName,
                         'addr2' => $i % 3 ? $faker->secondaryAddress : NULL,

@@ -27,19 +27,6 @@ class CreateAwardsTable extends Migration {
                                 ->on('persons')
                                 ->onDelete('cascade')
                                 ->onUpdate('cascade');                        
-                        $table->date('completed');
-                        $table->unsignedInteger('scout_id');
-                        $table->foreign('scout_id')    // Scout who earned the award.
-                                ->references('id')
-                                ->on('persons')
-                                ->onDelete('cascade')
-                                ->onUpdate('cascade');
-                        $table->unsignedInteger('approver_id');     // Adult who signs off on award.
-                        $table->foreign('approver_id')
-                                ->references('id')
-                                ->on('persons')
-                                ->onDelete('cascade')
-                                ->onUpdate('cascade');                        
                         $table->timestamps();
                 });                
                 
