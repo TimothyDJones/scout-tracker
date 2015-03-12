@@ -11,7 +11,8 @@
 		"anahkiasen/former": "1.*@dev",
 		"pragmarx/steroids": "0.*",
 		"raveren/kint": "0.9.*",
-                "barryvdh/laravel-debugbar": "1.*"
+                "barryvdh/laravel-debugbar": "1.*",
+                "fzaninotto/faker": "1.*"
 	},
 	"autoload": {
 		"classmap": [

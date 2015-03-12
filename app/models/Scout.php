@@ -5,7 +5,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Scout extends Person {
     
     public function ranks() {
-        $this->belongsToMany('Rank');
+        return $this->belongsToMany('Rank', 'rank_scout', 'scout_id');
     }
     
+    public function adults() {
+        return $this->belongsToMany('Adult', 'adult_scout', 'adult_id');
+    }
 }
