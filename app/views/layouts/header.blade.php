@@ -1,4 +1,5 @@
 @section("header")
+<header>
     <nav role="navigation" class="navbar navbar-default">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -53,21 +54,5 @@
     @if ( Config::get('app.debug') )
         {{ Kint::dump(Route::currentRouteName()) }}
     @endif
-
-<!--
-<div class="header">
-    <div class="container">
-        <h1>Customer Authentication Tutorial
-        
-        @if ( Auth::check() )
-            <li>{{ link_to('profile', 'Profile') }}</li>
-            <li>{{ link_to('logout', 'Log Out') }}</li>
-        @else
-            <li>{{ link_to('login', 'Log In') }}</li>
-        @endif
-        </h1>
-    </div>
-</div>
--->
-
+</header>
 @show
