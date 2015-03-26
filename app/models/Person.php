@@ -18,7 +18,7 @@ class Person extends BaseModel
 	protected $table = 'persons';
         
         protected $stiClassField = 'class_name';
-        protected $stiBaseClass = 'Product';
+        protected $stiBaseClass = 'Person';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
