@@ -1,12 +1,12 @@
 <?php
 
-use storage\person\PersonRepository as Scout;
+//use storage\person\PersonRepository as Scout;
 
 class ScoutsController extends \BaseController {
     
-        public function __construct(Scout $scout) {
-            $this->scout = $scout;
-        }
+        //public function __construct(Scout $scout) {
+        //    $this->scout = $scout;
+        //}
 
 	/**
 	 * Display a listing of the resource.
@@ -15,7 +15,8 @@ class ScoutsController extends \BaseController {
 	 */
 	public function index()
 	{
-            return $this->scout->all();
+            //return $this->scout->all();
+            return Scout::all();
             //$this->layout->content = View::make('scouts.index');
 	}
 
@@ -27,7 +28,9 @@ class ScoutsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+            return Redirect::route('persons.create', array('Scout'));
+            
+            //$this->layout->content = View::make('scouts.create');
 	}
 
 

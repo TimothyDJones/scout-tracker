@@ -12,11 +12,11 @@
     </div>
     @endif
     <div class="row">
-        <h2>{{ $page_title or "Create Scout" }}</h2>
+        <h2>{{ $page_title or "Create " . $class_name }}</h2>
     </div>
 
         {{ Form::model(new Scout, array('route' => ['scouts.store'], 'role' => 'form', 'class' => 'form-horizontal')) }}
-            @include('scouts/partials/_form', array('submit_button_label' => 'Create'))
+            @include('persons/partials/_form', array('submit_button_label' => 'Create'))
 	{{ Form::close() }}
 
 @stop

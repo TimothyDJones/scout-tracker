@@ -25,9 +25,9 @@ class PersonsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($personClass = 'Scout')
 	{
-		//
+            $this->layout->content = View::make('persons.create', array('class_name' => $personClass, 'updateFlag' => FALSE));
 	}
 
 
@@ -88,6 +88,10 @@ class PersonsController extends \BaseController {
 	{
 		//
 	}
+        
+        public function login() {
+            $this->layout->content = View::make('persons.login');
+        }
 
 
 }
