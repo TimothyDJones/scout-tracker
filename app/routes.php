@@ -22,5 +22,6 @@ Route::model('adults', 'Adults');
 Route::get('scouts/court-of-honor', array('as' => 'court-of-honor', 'uses' => 'ScoutsController@coh'));
 Route::get('scouts/search', array('as' => 'search', 'uses' => 'ScoutsController@search'));
 
+Route::resource('persons', 'PersonsController');
 Route::resource('scouts', 'ScoutsController');
 Route::resource('adults', 'AdultsController');

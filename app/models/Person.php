@@ -5,7 +5,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Person extends BaseModel
+class Person extends \BaseModel
         implements UserInterface, RemindableInterface {
 
 	//use UserTrait, RemindableTrait;
