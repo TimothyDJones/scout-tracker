@@ -16,10 +16,12 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::model('persons', 'Person');
 Route::model('scouts', 'Scout');
-Route::model('adults', 'Adults');
+Route::model('adults', 'Adult');
 
 Route::get('persons/login', array('as' => 'login', 'uses' => 'PersonsController@login'));
+Route::get('persons/show/{persons}', array('as' => 'profile', 'uses' => 'PersonsController@show'));
 Route::get('scouts/court-of-honor', array('as' => 'court-of-honor', 'uses' => 'ScoutsController@coh'));
 Route::get('scouts/search', array('as' => 'search', 'uses' => 'ScoutsController@search'));
 
