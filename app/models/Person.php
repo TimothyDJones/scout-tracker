@@ -17,7 +17,20 @@ class Person extends \BaseModel
 	 */
 	protected $table = 'persons';
         
+        /**
+         * The name of the column in database table for storing the class name.
+         * 
+         * @var string
+         */
         protected $stiClassField = 'class_name';
+        
+        /**
+         * The name of the base class used for single-table inheritance.
+         * Typically, this will be the name of *this* class, but could
+         * be different, if you have multiple levels of inheritance.
+         * 
+         * @var string
+         */
         protected $stiBaseClass = 'Person';
 
 	/**
@@ -27,7 +40,9 @@ class Person extends \BaseModel
 	 */
 	protected $hidden = array('password', 'remember_token');
         
-        protected $fillable = array('last_name', 'first_name', 'home_phone', 'cell_phone', 'email_address', 'password', 'password_confirmation');
+        protected $fillable = array('last_name', 'first_name', 'home_phone', 
+            'cell_phone', 'email_address', 'password', 'password_confirmation',
+            'address_id');
         
         protected $guarded = array();
         
@@ -36,9 +51,9 @@ class Person extends \BaseModel
             'first_name'        => 'required',
             'home_phone'        => 'phone',
             'cell_phone'        => 'phone',
-            'email_address'     => 'required|email|min:5|unique:customers,email',
-            'password'          => 'required|different:email',
-            'password_confirmation' => 'required',
+            'email_address'     => 'required|email|min:5|unique:persons,email_address',
+            'password'          => 'required|different:email_address|confirmed',        // *** Ardent technique for password confirmation validation!
+            'password_confirmation' => 'required|different:email_address',
         );
         
         public $autoPurgeRedundantAttributes = true;
@@ -59,7 +74,7 @@ class Person extends \BaseModel
         }
         
         public function address() {
-            return $this->hasOne('Address');
+            return $this->belongsTo('Address');
         }
         
         public function getAuthIdentifier() {
