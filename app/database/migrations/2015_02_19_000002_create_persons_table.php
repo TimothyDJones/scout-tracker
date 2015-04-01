@@ -18,7 +18,7 @@ class CreatePersonsTable extends Migration {
                         $table->string('bsa_id', 15)->nullable();
                         $table->string('first_name', 20);
                         $table->string('last_name', 30);
-                        $table->string('email', 50)->nullable();
+                        $table->string('email_address', 50)->nullable();
                         $table->string('password')->default('-999');
                         $table->string('home_phone', 20)->nullable();
                         $table->string('cell_phone', 20)->nullable();
