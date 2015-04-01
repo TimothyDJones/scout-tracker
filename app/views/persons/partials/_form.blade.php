@@ -16,11 +16,11 @@
                     </div>
                 </div>                
                 <div class="form-group floating-label-form-group">
-                    {{ Form::label('email', 'E-mail Address', array('class' => 'control-label control-label-reqd col-xs-5')) }}
+                    {{ Form::label('email_address', 'E-mail Address', array('class' => 'control-label control-label-reqd col-xs-5')) }}
                     <div class="input-group col-xs-6">
                         <!--<span class="hovertext">You must enter a valid e-mail address in the format 'name@example.com'.<div class="triangle"></div></span> -->
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                        {{ Form::email('email', null, array('class' => 'form-control input-sm input-sm-reqd floatlabel', 'placeholder' => 'E-Mail Address', 'data-label' => 'You must enter a valid e-mail address in the format \'name@example.com\'.')) }}
+                        {{ Form::email('email_address', null, array('class' => 'form-control input-sm input-sm-reqd floatlabel', 'placeholder' => 'E-Mail Address', 'data-label' => 'You must enter a valid e-mail address in the format \'name@example.com\'.')) }}
                     </div>
                 </div>
                 @if ( !$updateFlag && !Utility::isAdminUser() )
@@ -57,5 +57,13 @@
                         {{ Form::text('telephone2', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Secondary Telephone')) }}
                     </div>
                 </div>
+                <div class="form-group floating-label-form-group">
+                    {{ Form::label('address_id', 'Address', array('class' => 'control-label col-xs-5')) }}
+                    <div class="input-group col-xs-6">
+                        <!--<span class="hovertext">If you have a secondary telephone number that you would like us to use, if necessary, enter it here.<div class="triangle"></div></span> -->
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                        {{ Form::select('address_id', $addressList, null, array('class' => 'form-control input-sm floatlabel', )) }}
+                    </div>
+                </div>                
                 {{ Form::submit($submit_button_label, array('class' => 'btn btn-primary pull-right')) }}
             </div>
