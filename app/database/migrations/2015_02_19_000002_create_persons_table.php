@@ -23,6 +23,8 @@ class CreatePersonsTable extends Migration {
                         $table->string('home_phone', 20)->nullable();
                         $table->string('cell_phone', 20)->nullable();
                         $table->date('birth_date')->nullable();
+                        $table->boolean('admin_ind')->default(FALSE);
+                        $table->string('remember_token')->nullable();
                         $table->unsignedInteger('address_id');
                         $table->foreign('address_id')
                                 ->references('id')
