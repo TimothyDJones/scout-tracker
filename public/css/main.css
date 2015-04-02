@@ -324,7 +324,9 @@ blockquote {
 }
 
 .subnav-wrap {
-  background:#2e9ff0;
+  background:  #225050;//#2e9ff0;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .subnav {
