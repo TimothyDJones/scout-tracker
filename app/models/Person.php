@@ -50,8 +50,8 @@ class Person extends \BaseModel
             'last_name'         => 'required',
             'first_name'        => 'required',
             'bsa_id'            => 'integer',
-            'primary_phone'     => 'phone',
-            'secondary_phone'   => 'phone',
+            //'primary_phone'     => 'phone',
+            //'secondary_phone'   => 'phone',
             'email_address'     => 'required|email|min:5|unique:persons,email_address',
             'password'          => 'required|different:email_address|confirmed',        // *** Ardent technique for password confirmation validation!
             'password_confirmation' => 'required|different:email_address',
