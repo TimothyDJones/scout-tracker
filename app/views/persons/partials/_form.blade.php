@@ -50,19 +50,19 @@
                 </div>
                 @endif
                 <div class="form-group floating-label-form-group">
-                    {{ Form::label('telephone1', 'Primary Telephone', array('class' => 'control-label control-label-reqd col-xs-5')) }}
+                    {{ Form::label('primary_phone', 'Primary Telephone', array('class' => 'control-label control-label-reqd col-xs-5')) }}
                     <div class="input-group col-xs-6">
                         <!--<span class="hovertext">Your telephone number is <em>only</em> used if we have questions about your order.<div class="triangle"></div></span> -->
                         <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
-                        {{ Form::text('telephone1', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Primary Telephone')) }}
+                        {{ Form::text('primary_phone', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Primary Telephone')) }}
                     </div>
                 </div>
                 <div class="form-group floating-label-form-group">
-                    {{ Form::label('telephone2', 'Other Telephone', array('class' => 'control-label col-xs-5')) }}
+                    {{ Form::label('secondary_phone', 'Other Telephone', array('class' => 'control-label col-xs-5')) }}
                     <div class="input-group col-xs-6">
                         <!--<span class="hovertext">If you have a secondary telephone number that you would like us to use, if necessary, enter it here.<div class="triangle"></div></span> -->
                         <span class="input-group-addon"><i class="fa fa-phone-square fa-fw"></i></span>
-                        {{ Form::text('telephone2', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Other Telephone')) }}
+                        {{ Form::text('secondary_phone', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Other Telephone')) }}
                     </div>
                 </div>
                 <div class="form-group floating-label-form-group">
