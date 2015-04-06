@@ -69,14 +69,17 @@ class PersonsController extends \BaseController {
             // verification is not required.
             if ( Utility::isAdminUser() ) {
                 $validation_rules = array_except(Person::$validation_rules, array('password', 'password_confirmation'));
+                $input['password'] = 'password';    // Set default password to 'password'.
             }
             $validator = Validator::make($input, $validation_rules);
             
             if ( $validator->passes() ) {
                 unset($input['password_confirmation']);     // Remove password confirmation field from array.
                 
-                // Hash password before saving.
-                $input['password'] = Hash::make($input['password']);
+                if ( isset($input['password']) ) {
+                    // Hash password before saving.
+                    $input['password'] = Hash::make($input['password']);
+                }
                 
                 $class_name = Input::get('class_name');
                 switch ($class_name) {
