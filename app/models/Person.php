@@ -40,7 +40,7 @@ class Person extends \BaseModel
 	 */
 	protected $hidden = array('password', 'remember_token');
         
-        protected $fillable = array('last_name', 'first_name', 'home_phone', 
+        protected $fillable = array('last_name', 'first_name', 'bsa_id', 'home_phone', 
             'cell_phone', 'email_address', 'password', 'password_confirmation',
             'address_id');
         
@@ -49,6 +49,7 @@ class Person extends \BaseModel
         public static $validation_rules = array(
             'last_name'         => 'required',
             'first_name'        => 'required',
+            'bsa_id'            => 'integer',
             'home_phone'        => 'phone',
             'cell_phone'        => 'phone',
             'email_address'     => 'required|email|min:5|unique:persons,email_address',
