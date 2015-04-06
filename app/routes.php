@@ -26,8 +26,8 @@ Route::get('persons/login', array('as' => 'login', 'uses' => 'PersonsController@
 Route::post('persons/authenticate', array('as' => 'authenticate', 'uses' => 'PersonsController@authenticate'));
 Route::get('profile/{persons?}', array('as' => 'profile', 'uses' => 'PersonsController@show'));
 Route::get('persons/show/{persons?}', array('as' => 'profile', 'uses' => 'PersonsController@show'));
-Route::get('persons/changePassword/(persons?)', array('as' => 'changePassword', 'uses' => 'PersonsController@changePassword'))->before('auth');
-Route::post('persons/updatePassword/(persons)', array('as' => 'updatePassword', 'uses' => 'PersonsController@updatePassword'))->before('auth');
+Route::get('persons/changePassword/{persons?}', array('as' => 'changePassword', 'uses' => 'PersonsController@changePassword'))->before('auth');
+Route::post('persons/updatePassword/{persons}', array('as' => 'updatePassword', 'uses' => 'PersonsController@updatePassword'))->before('auth');
 Route::get('scouts/court-of-honor', array('as' => 'court-of-honor', 'uses' => 'ScoutsController@coh'));
 Route::get('scouts/search', array('as' => 'search', 'uses' => 'ScoutsController@search'));
 
