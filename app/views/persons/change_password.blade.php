@@ -1,7 +1,7 @@
 @section('main')
         <h2>Change Password for {{ $person->first_name }}&nbsp;{{ $person->last_name }} ({{ $person->email_address }})</h2>
 
-        {{ Form::model($person, array('method' => 'PATCH', 'route' => array('persons.updatePassword', $person->id), 'role' => 'form', 'class' => 'form-horizontal')) }}
+        {{ Form::model($person, array('method' => 'PATCH', 'route' => array('updatePassword', $person->id), 'role' => 'form', 'class' => 'form-horizontal')) }}
             {{ Form::hidden('class_name', $person->class_name) }}
             {{ Form::hidden('email_address', $person->email_address) }}
             <div class="col-md-9 col-xs-9">
@@ -31,7 +31,7 @@
                         {{ Form::password('password_confirmation', array('class' => 'form-control input-sm input-sm-reqd floatlabel', 'placeholder' => 'Confirm New Password')) }}
                     </div>
                 </div>
-                {{ Form::submit($submit_button_label, array('class' => 'btn btn-primary pull-right')) }}
+                {{ Form::submit('Update', array('class' => 'btn btn-primary pull-right')) }}
             </div>
 	{{ Form::close() }}
 

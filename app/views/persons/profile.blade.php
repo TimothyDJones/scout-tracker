@@ -17,7 +17,8 @@
             @endif
             
             @if ( Auth::check() && ( Auth::user()->admin_ind > 0 || Auth::id() == $person->id ) )
-            {{ link_to_route('persons.edit', 'Edit', $person->id, array('class' => 'btn btn-info')) }}
+            {{ link_to_route('persons.edit', 'Edit', $person->id, array('class' => 'btn btn-info')) }}&nbsp;
+            {{ link_to_route('changePassword', 'Change Password', array('person' => $person->id), array('class' => 'btn btn-primary')) }}
             @endif
         </div>
         @if ( !is_null($person->address) )

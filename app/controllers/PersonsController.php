@@ -163,7 +163,7 @@ class PersonsController extends \BaseController {
 	{
             $input = array_except(Input::all(), array( '_method', 'password', 'password_confirmation', ) );
             $person->fill($input);
-            $validation_rules = array_except(Customer::$validation_rules, array('password', 'password_confirmation'));
+            $validation_rules = array_except(Person::$validation_rules, array('password', 'password_confirmation'));
             $validation_rules['email_address'] = $validation_rules['email_address'] . ',' . $person->id;
             //Log::debug('customer - update - validation rule', $validation_rules);
             $validator = Validator::make($input, $validation_rules);
