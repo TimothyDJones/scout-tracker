@@ -14,7 +14,15 @@
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         {{ Form::text('last_name', null, array('class' => 'form-control input-sm input-sm-reqd floatlabel', 'placeholder' => 'Last Name', 'data-label' => 'Please enter your last name (surname).')) }}
                     </div>
-                </div>                
+                </div>
+                <div class="form-group floating-label-form-group">
+                    {{ Form::label('bsa_id', 'BSA ID Number', array('class' => 'control-label col-xs-5')) }}
+                    <div class="input-group col-xs-6">
+                        <!--<span class="hovertext">Please enter your last name (surname).<div class="triangle"></div></span> -->
+                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        {{ Form::text('bsa_id', null, array('class' => 'form-control input-sm input-sm-reqd floatlabel', 'placeholder' => 'BSA ID', 'data-label' => 'Please enter your BSA ID number (if known).')) }}
+                    </div>
+                </div>
                 <div class="form-group floating-label-form-group">
                     {{ Form::label('email_address', 'E-mail Address', array('class' => 'control-label control-label-reqd col-xs-5')) }}
                     <div class="input-group col-xs-6">
