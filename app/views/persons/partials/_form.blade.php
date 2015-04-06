@@ -54,7 +54,7 @@
                     <div class="input-group col-xs-6">
                         <!--<span class="hovertext">If you have a secondary telephone number that you would like us to use, if necessary, enter it here.<div class="triangle"></div></span> -->
                         <span class="input-group-addon"><i class="fa fa-phone-square fa-fw"></i></span>
-                        {{ Form::text('telephone2', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Secondary Telephone')) }}
+                        {{ Form::text('telephone2', null, array('class' => 'form-control input-sm floatlabel', 'placeholder' => 'Other Telephone')) }}
                     </div>
                 </div>
                 <div class="form-group floating-label-form-group">
@@ -64,6 +64,16 @@
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
                         {{ Form::select('address_id', $addressList, null, array('class' => 'form-control input-sm floatlabel', )) }}
                     </div>
-                </div>                
+                </div>
+                @if ( $class_name == 'Adult' )
+                <div class="form-group floating-label-form-group">
+                    {{ Form::label('admin_ind', 'Administrator?', array('class' => 'control-label col-xs-5')) }}
+                    <div class="input-group col-xs-6">
+                        <!--<span class="hovertext">If you have a secondary telephone number that you would like us to use, if necessary, enter it here.<div class="triangle"></div></span> -->
+                        <span class="input-group-addon"><i class="fa fa-phone-square fa-fw"></i></span>
+                        {{ Form::select('admin_ind', array(FALSE => 'No', TRUE => 'Yes'), null, array('class' => 'form-control input-sm floatlabel', )) }}
+                    </div>
+                </div>    
+                @endif
                 {{ Form::submit($submit_button_label, array('class' => 'btn btn-primary pull-right')) }}
             </div>

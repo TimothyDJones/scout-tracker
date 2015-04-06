@@ -16,7 +16,19 @@ class PersonsController extends \BaseController {
 	public function index()
 	{
             //return $this->person->all();
-            return Person::all();
+            //return Person::all();
+            if ( Utility::isAdminUser() ) {
+                $query = Person::orderBy('class_name', 'ASC')
+                        ->orderBy('last_name', 'ASC');
+                $persons = $query->remember(5)->get();
+                
+                $this->layout->content = View::make('persons.index', compact('persons'))
+                        ->with(array('page_title' => 'All Persons', ));
+            } elseif ( Auth::guest() ) {
+                return Redirect::route('login');
+            } else {
+                return Redirect::route('profile', array('id' => Auth::user()->id));
+            }
 	}
 
 
@@ -25,8 +37,10 @@ class PersonsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create($personClass = 'Scout')
+	public function create()
 	{
+            $personClass = Input::get('class_name');
+            if ( !$personClass ) $personClass = 'Scout';
             // Get list of addresses to display.
             $addresses = Address::selectList();
             $this->layout->content = View::make('persons.create', 
@@ -44,7 +58,7 @@ class PersonsController extends \BaseController {
 	 */
 	public function store()
 	{
-            $input = array_except(Input::all(), array('class_name'));
+            $input = array_except(Input::all(), array('class_name', 'admin_ind'));
             
             // We must has *BOTH* 'password' and 'password_confirmation' so that validator works!
             //$input['password'] = Hash::make($input['password']);
@@ -68,13 +82,16 @@ class PersonsController extends \BaseController {
                 switch ($class_name) {
                     case 'Adult':
                         $person = new Adult($input);
+                        $person->admin_ind = Input::get('admin_ind');
                         break;
                     case 'Scout':
                         $person = new Scout($input);
+                        $person->admin_ind = FALSE;
                         break;
                     default:        // 'Scout' is default.
                         $input['class_name'] = 'Scout';
                         $person = new Scout($input);
+                        $person->admin_ind = FALSE;
                 }                
                 
                 // We "force" the save, because we have already done validation above.
@@ -101,9 +118,13 @@ class PersonsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Person $person)
+	public function show(Person $person = NULL)
 	{
-		//
+            if ( !$person ) {
+                $person = Person::find(Auth::id());
+            }
+            
+            return $person;
 	}
 
 
@@ -144,6 +165,37 @@ class PersonsController extends \BaseController {
         
         public function login() {
             $this->layout->content = View::make('persons.login');
+        }
+        
+        public function authenticate() {
+            
+            if ( Auth::check() ) {
+                return Redirect::route('profile');
+            } elseif ( Request::isMethod('post') ) {
+                $loginValidator = Validator::make(Input::all(), array(
+                    'email_address' => 'required',
+                    'password' => 'required',
+                ));
+                
+                if ( $loginValidator->passes() ) {
+                    $inputCredentials = array(
+                        'email_address' => Input::get('email_address'),
+                        'password' => Input::get('password'),
+                    );
+                    
+                    if ( Auth::attempt($inputCredentials) ) {
+                        $person = Person::find(Auth::id());
+                        if ( $person->admin_ind ) {
+                            Session::put('AdminUser', TRUE);
+                        }
+                        return Redirect::intended('profile', array('id' => $person->id))->with('message', 'Login successful.');
+                    }
+                    
+                    return Redirect::back()->withInput()->withErrors( array('password' => array('Credentials invalid.')) );
+                } else {
+                    return Redirect::back()->withInput()->withErrors($loginValidator);
+                }
+            }            
         }
 
 
