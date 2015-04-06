@@ -112,10 +112,6 @@ class PersonsController extends \BaseController {
                         ->with(array('message' => 'Validation error.', 
                             'updateFlag' => FALSE, ));                
             }
-            
-
-            
-
 	}
 
 
@@ -131,7 +127,8 @@ class PersonsController extends \BaseController {
                 $person = Person::find(Auth::id());
             }
             
-            return $person;
+            //return $person;
+            $this->layout->content = View::make('persons.profile', compact('person'));
 	}
 
 
@@ -141,21 +138,47 @@ class PersonsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Person $person)
 	{
-		//
+            if ( Utility::isAdminUser() || 
+                    ( Auth::check() && Auth::user()->id == $person->id ) ) {
+                $addressList = Address::selectList();
+                $this->layout->content = View::make('persons.edit', compact('person', 'addressList'))
+                        ->with(array('updateFlag' => TRUE,
+                            'class_name' => $person->class_name));
+            } else {
+                return Redirect::route('customer.show', array('id' => $person->id))
+                        ->with(array('message' => 'No permissions to edit ' . $person->first_name . ' ' . $person->last_name));
+            }
 	}
 
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  Person $person
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Person $person)
 	{
-		//
+            $input = array_except(Input::all(), array( '_method', 'password', 'password_confirmation', ) );
+            $person->fill($input);
+            $validation_rules = array_except(Customer::$validation_rules, array('password', 'password_confirmation'));
+            $validation_rules['email_address'] = $validation_rules['email_address'] . ',' . $person->id;
+            //Log::debug('customer - update - validation rule', $validation_rules);
+            $validator = Validator::make($input, $validation_rules);
+            
+            if ( $validator->passes() ) {
+                if ( $person->updateUniques() )
+                    return Redirect::route('persons.show', $person->id)
+                        ->with('message', 'Details for "' . $person->first_name . ' ' . $person->last_name . '" updated.');
+                else
+                    return Redirect::route('persons.edit', array_get($person->getOriginal(), 'id'))
+                        ->withInput()->withErrors( $person->errors() );
+            } else {
+                return Redirect::route('persons.edit', array_get($customer->getOriginal(), 'id'))
+                        ->withInput()->withErrors( $validator->errors() );
+            }            
 	}
 
 
@@ -171,7 +194,12 @@ class PersonsController extends \BaseController {
 	}
         
         public function login() {
-            $this->layout->content = View::make('persons.login');
+            if ( Auth::guest() ) {
+                $this->layout->content = View::make('persons.login');
+            } else {
+                return Redirect::route('profile', array('id' => Auth::id()))
+                        ->with(array('message' => 'You are already logged in.'));
+            }
         }
         
         public function authenticate() {
@@ -195,7 +223,7 @@ class PersonsController extends \BaseController {
                         if ( $person->admin_ind ) {
                             Session::put('AdminUser', TRUE);
                         }
-                        return Redirect::intended('profile', array('id' => $person->id))->with('message', 'Login successful.');
+                        return Redirect::route('profile', array('id' => $person->id))->with('message', 'Login successful.');
                     }
                     
                     return Redirect::back()->withInput()->withErrors( array('password' => array('Credentials invalid.')) );
@@ -203,6 +231,43 @@ class PersonsController extends \BaseController {
                     return Redirect::back()->withInput()->withErrors($loginValidator);
                 }
             }            
+        }
+        
+        public function changePassword(Person $person) {
+            if ( Utility::isAdminUser() || 
+                    ( Auth::check() && Auth::user()->id == $person->id ) ) {
+                $this->layout->content = View::make('persons.change_password', compact('person'));
+            }
+        }
+        
+        public function updatePassword() {
+            $person = Person::find(Input::get('id'));
+            
+            if ( Utility::isAdminUser() || 
+                    ( Auth::check() && Auth::user()->id == $person->id ) ) {
+                $input = Input::all();
+                if ( Auth::validate( array(
+                    $person->email_address,
+                    $input['old_passowrd']
+                ) ) ) {
+                    if ( $input['password'] === $input['password_confirmation']
+                            && $input['old_password'] !== $input['password'] ) {    // Cannot re-use current password.
+                        unset($input['password_confirmation']);
+                        $person->password = Hash::make($input['password']);
+                        if ( $person->updateUniques() ) {
+                            return Redirect::route('profile', array('id' => $person->id))
+                                    ->with(array( 'message' => 'Password successfully changed!' ));
+                        }                            
+                    }
+                }
+                
+                return Redirect::route('profile', array('id' => $person->id))
+                        ->with(array( 'message' => 'Unable to change password.  Please try again.' ));
+                
+            }
+            
+            return Redirect::route('profile', array('id' => $person->id))
+                    ->with(array( 'message' => 'No permissions to change password for "' . $person->first_name . ' ' . $person->last_name . '".' ));
         }
 
 
