@@ -86,6 +86,9 @@ class PersonsController extends \BaseController {
                     case 'Adult':
                         $person = new Adult($input);
                         $person->admin_ind = Input::get('admin_ind');
+                        if ( is_null($person->admin_ind) ) {
+                            $person->admin_ind = FALSE;
+                        }
                         break;
                     case 'Scout':
                         $person = new Scout($input);
@@ -103,10 +106,11 @@ class PersonsController extends \BaseController {
                     return Redirect::route('profile', array($person->id))->with(array('message' => $message));
                 }
             } else {  // If validation fails, redirect to previous page.
-                return Redirect::route('persons.create')
+                return Redirect::route('persons.create', array('class_name' => Input::get('class_name')))
                         ->withInput()
                         ->withErrors( $validator->errors() )
-                        ->with(array('message' => 'Validation error.', 'updateFlag' => FALSE));                
+                        ->with(array('message' => 'Validation error.', 
+                            'updateFlag' => FALSE, ));                
             }
             
 
