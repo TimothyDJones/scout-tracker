@@ -71,7 +71,7 @@ class PersonsController extends \BaseController {
                 $validation_rules = array_except(Person::$validation_rules, array('password', 'password_confirmation'));
                 $input['password'] = 'password';    // Set default password to 'password'.
             }
-            $validator = Validator::make($input, $validation_rules);
+            $validator = Validator::make($input, $validation_rules, Person::$validation_messages);
             
             if ( $validator->passes() ) {
                 unset($input['password_confirmation']);     // Remove password confirmation field from array.
@@ -166,7 +166,7 @@ class PersonsController extends \BaseController {
             $validation_rules = array_except(Person::$validation_rules, array('password', 'password_confirmation'));
             $validation_rules['email_address'] = $validation_rules['email_address'] . ',' . $person->id;
             //Log::debug('customer - update - validation rule', $validation_rules);
-            $validator = Validator::make($input, $validation_rules);
+            $validator = Validator::make($input, $validation_rules, Person::$validation_messages);
             
             if ( $validator->passes() ) {
                 if ( $person->updateUniques() )

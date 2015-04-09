@@ -57,7 +57,7 @@ class Person extends \BaseModel
             'password_confirmation' => 'required|different:email_address',
         );
         
-        public static $messages = array(
+        public static $validation_messages = array(
             'phone' => 'Format for :attribute is invalid.',
         );
         
