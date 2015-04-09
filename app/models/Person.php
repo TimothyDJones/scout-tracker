@@ -50,11 +50,15 @@ class Person extends \BaseModel
             'last_name'         => 'required',
             'first_name'        => 'required',
             'bsa_id'            => 'integer',
-            //'primary_phone'     => 'phone',
-            //'secondary_phone'   => 'phone',
+            'primary_phone'     => 'phone:US',
+            'secondary_phone'   => 'phone:US',
             'email_address'     => 'required|email|min:5|unique:persons,email_address',
             'password'          => 'required|different:email_address|confirmed',        // *** Ardent technique for password confirmation validation!
             'password_confirmation' => 'required|different:email_address',
+        );
+        
+        public static $messages = array(
+            'phone' => 'Format for :attribute is invalid.',
         );
         
         public $autoPurgeRedundantAttributes = true;

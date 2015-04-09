@@ -12,7 +12,9 @@
 		"pragmarx/steroids": "0.*",
 		"raveren/kint": "0.9.*",
                 "barryvdh/laravel-debugbar": "1.*",
-                "fzaninotto/faker": "1.*"
+                "fzaninotto/faker": "1.*",
+		"monarobase/country-list": "1.*",
+		"propaganistas/laravel-phone": "1.*"
 	},
 	"autoload": {
 		"classmap": [

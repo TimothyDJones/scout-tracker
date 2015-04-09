@@ -122,6 +122,8 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
                 'Barryvdh\Debugbar\ServiceProvider',
                 'storage\StorageServiceProvider',
+                'Monarobase\CountryList\CountryListServiceProvider',
+                'Propaganistas\LaravelPhone\LaravelPhoneServiceProvider',
 
 	),
 
@@ -188,6 +190,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+                'Countries' => 'Monarobase\CountryList\CountryListFacade',
 
 	),
 
