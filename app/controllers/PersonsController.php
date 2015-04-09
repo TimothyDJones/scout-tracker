@@ -176,7 +176,7 @@ class PersonsController extends \BaseController {
                     return Redirect::route('persons.edit', array_get($person->getOriginal(), 'id'))
                         ->withInput()->withErrors( $person->errors() );
             } else {
-                return Redirect::route('persons.edit', array_get($customer->getOriginal(), 'id'))
+                return Redirect::route('persons.edit', array_get($person->getOriginal(), 'id'))
                         ->withInput()->withErrors( $validator->errors() );
             }            
 	}
