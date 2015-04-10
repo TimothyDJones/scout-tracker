@@ -99,6 +99,24 @@ class ScoutsController extends \BaseController {
         public function search() {
             
         }
+        
+        public function rank(Scout $scout) {
+            
+        }
+        
+        private function buildRankList(Scout $scout) {
+            $rankList = new \Illuminate\Support\Collection();
+            $rankList->
+            
+            $allRanks = Rank::all()->orderBy('rank_sort_sequence', 'ASC');
+            $scoutRanks = $scout->ranks->sortBy('rank_sort_sequence', 'ASC');
+            
+            for ( $i = $scoutRanks->count(); $i < $allRanks->count(); $i++ ) {
+                if ( $scout->ranks->id == $rank->id ) {
+                    
+                }
+            }
+        }
 
 
 }
