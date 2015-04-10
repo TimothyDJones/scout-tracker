@@ -16,7 +16,7 @@ class CreateAwardsTable extends Migration {
                         $table->increments('id');
                         $table->string('class_name', 20)->index();   // The derived class name:  'MeritBadge' or 'Rank'
                         $table->string('award_name', 30);
-                        $table->integer('reqts_last_changed_year');
+                        $table->unsignedInteger('reqts_last_changed_year');
                         $table->boolean('eagle_reqd_ind')->default(FALSE);
                         $table->string('award_image')->nullable();
                         $table->string('merit_badge_org_url', 255)->nullable();

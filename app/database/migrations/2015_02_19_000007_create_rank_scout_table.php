@@ -14,13 +14,13 @@ class CreateRankScoutTable extends Migration {
 	{
                 Schema::create('rank_scout', function(Blueprint $table) {
                         $table->increments('id');
-                        $table->integer('rank_id');
+                        $table->unsignedInteger('rank_id');
                         $table->foreign('rank_id')
                                 ->references('id')
                                 ->on('awards')
                                 ->onDelete('cascade')
                                 ->onUpdate('cascade');                             
-                        $table->integer('scout_id');
+                        $table->unsignedInteger('scout_id');
                         $table->foreign('scout_id')
                                 ->references('id')
                                 ->on('persons')
