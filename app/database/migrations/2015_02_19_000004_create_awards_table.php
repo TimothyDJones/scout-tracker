@@ -21,6 +21,7 @@ class CreateAwardsTable extends Migration {
                         $table->string('award_image')->nullable();
                         $table->string('merit_badge_org_url', 255)->nullable();
                         $table->unsignedInteger('rank_sort_sequence')->default(0);
+                        $table->unsignedInteger('minimum_time_since_last_rank')->default(0);    // Measured in months.
                         $table->unsignedInteger('primary_counselor_id')->nullable();
                         $table->foreign('primary_counselor_id')
                                 ->references('id')
