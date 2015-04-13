@@ -14,7 +14,7 @@ class CreatePersonsTable extends Migration {
 	{
                 Schema::create('persons', function(Blueprint $table) {
                         $table->increments('id');
-                        $table->string('class_name', 20)->default('Scout')->index();
+                        $table->string('person_class_name', 20)->default('Scout')->index();
                         $table->string('bsa_id', 15)->nullable();
                         $table->string('first_name', 20);
                         $table->string('last_name', 30);

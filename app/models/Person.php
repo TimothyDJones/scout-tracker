@@ -22,7 +22,7 @@ class Person extends \BaseModel
          * 
          * @var string
          */
-        protected $stiClassField = 'class_name';
+        protected $stiClassField = 'person_class_name';
         
         /**
          * The name of the base class used for single-table inheritance.
@@ -42,7 +42,7 @@ class Person extends \BaseModel
         
         protected $fillable = array('last_name', 'first_name', 'bsa_id', 'primary_phone', 
             'secondary_phone', 'email_address', 'password', 'password_confirmation',
-            'address_id');
+            'address_id', 'person_class_name');
         
         protected $guarded = array();
         
