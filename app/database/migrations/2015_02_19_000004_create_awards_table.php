@@ -14,7 +14,7 @@ class CreateAwardsTable extends Migration {
 	{
                 Schema::create('awards', function(Blueprint $table) {
                         $table->increments('id');
-                        $table->string('class_name', 20)->index();   // The derived class name:  'MeritBadge' or 'Rank'
+                        $table->string('award_class_name', 20)->index();   // The derived class name:  'MeritBadge' or 'Rank'
                         $table->string('award_name', 30);
                         $table->unsignedInteger('reqts_last_changed_year');
                         $table->boolean('eagle_reqd_ind')->default(FALSE);
