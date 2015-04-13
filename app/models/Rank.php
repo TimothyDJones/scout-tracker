@@ -23,11 +23,18 @@ class Rank extends Award {
             
         );
         
-        public $autoPurgeRedundantAttributes = true;    
+        public $autoPurgeRedundantAttributes = true;   
+        
+        /*public function getApproverNameAttribute() {
+            if ( !is_null($this->pivot->approver_last_name) ) {
+                return $this->pivot->approver_first_name . ' ' . $this->pivot->approver_last_name;
+            } else {
+                return 'N/A';
+            }
+        }*/
     
     public function scouts() {
-        return $this->belongsToMany('Scout', 'award_scout', 'scout_id')
-                ->withPivot('date_completed', 'approver_id');
+        return $this->hasMany('Scout', 'award_scout', 'award_id', 'scout_id');
     }
 }
 

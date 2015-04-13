@@ -14,7 +14,7 @@ class Award extends \BaseModel {
          * 
          * @var string
          */
-        protected $stiClassField = 'class_name';
+        protected $stiClassField = 'award_class_name';
         
         /**
          * The name of the base class used for single-table inheritance.
@@ -33,7 +33,7 @@ class Award extends \BaseModel {
 	protected $hidden = array();
         
         protected $fillable = array(
-            'class_name', 
+            'award_class_name', 
             'award_name', 
             'reqts_last_changed_year',
             'award_image', 

@@ -51,9 +51,12 @@ class ScoutsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Scout $scout)
 	{
-		//
+            $rankList = self::buildRankList($scout);
+            
+            $this->layout->content = View::make('scouts.ranks.show', compact('scout', 'rankList'))
+                    ->with(array('page_title' => 'Scout Details'));
 	}
 
 
@@ -106,16 +109,29 @@ class ScoutsController extends \BaseController {
         
         private function buildRankList(Scout $scout) {
             $rankList = new \Illuminate\Support\Collection();
-            $rankList->
+            //$rankList->
             
-            $allRanks = Rank::all()->orderBy('rank_sort_sequence', 'ASC');
-            $scoutRanks = $scout->ranks->sortBy('rank_sort_sequence', 'ASC');
+            $allRanks = Rank::where('id', '>', 0)->orderBy('rank_sort_sequence', 'ASC')->get();
+            $scoutRanks = $scout->ranks;  //->sortBy('rank_sort_sequence', 'ASC');
             
             for ( $i = $scoutRanks->count(); $i < $allRanks->count(); $i++ ) {
-                if ( $scout->ranks->id == $rank->id ) {
-                    
-                }
+                $scoutRanks->put($i, 
+                        // Use Laravel Collection object 'filter' method to get appropriate instance.
+                        // See http://stackoverflow.com/questions/20931020/laravel-get-object-from-collection-by-attribute.
+                        $allRanks->filter( function($item) use ($i) {
+                            return $item->id == $i;
+                        })->first()
+                        );
+                
+                /*
+                if ( $scout->ranks[$i]->id == $allRanks[$i]->id ) {
+                    $rankList->put($i, $scoutRanks[$i]);
+                } else {
+                    $rankList->put($i, $allRanks[$i]);
+                }*/
             }
+            
+            return $scoutRanks;
         }
 
 
