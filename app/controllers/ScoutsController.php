@@ -56,7 +56,8 @@ class ScoutsController extends \BaseController {
             $rankList = self::buildRankList($scout);
             
             $this->layout->content = View::make('scouts.ranks.show', compact('scout', 'rankList'))
-                    ->with(array('page_title' => 'Scout Details'));
+                    ->with(array('page_title' => 'Scout Details',
+                            'award_type' => 'Rank'));
 	}
 
 
@@ -114,7 +115,7 @@ class ScoutsController extends \BaseController {
             $allRanks = Rank::where('id', '>', 0)->orderBy('rank_sort_sequence', 'ASC')->get();
             $scoutRanks = $scout->ranks;  //->sortBy('rank_sort_sequence', 'ASC');
             
-            for ( $i = $scoutRanks->count(); $i < $allRanks->count(); $i++ ) {
+            for ( $i = $scoutRanks->count() + 1; $i <= $allRanks->count(); $i++ ) {
                 $scoutRanks->put($i, 
                         // Use Laravel Collection object 'filter' method to get appropriate instance.
                         // See http://stackoverflow.com/questions/20931020/laravel-get-object-from-collection-by-attribute.
