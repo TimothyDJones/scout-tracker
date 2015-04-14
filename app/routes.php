@@ -20,6 +20,8 @@ Route::model('persons', 'Person');
 Route::model('scouts', 'Scout');
 Route::model('adults', 'Adult');
 Route::model('addresses', 'Address');
+Route::model('awards', 'Award');
+Route::model('ranks', 'Rank');
 
 Route::get('login', array('as' => 'login', 'uses' => 'PersonsController@login'))->before('guest');
 Route::get('persons/login', array('as' => 'login', 'uses' => 'PersonsController@login'))->before('guest');
@@ -35,3 +37,5 @@ Route::resource('persons', 'PersonsController');
 Route::resource('scouts', 'ScoutsController');
 Route::resource('adults', 'AdultsController');
 Route::resource('addresses', 'AddressesController');
+Route::resource('awards', 'AwardsController');
+Route::resource('ranks', 'RanksController');

@@ -34,7 +34,11 @@ class Rank extends Award {
         }*/
     
     public function scouts() {
-        return $this->hasMany('Scout', 'award_scout', 'award_id', 'scout_id');
+        return $this->belongsToMany('Scout', 'award_scout', 'award_id', 'scout_id');
+    }
+    
+    public function requirements() {
+        return $this->hasMany('RankRequirement', 'award_id');
     }
 }
 
