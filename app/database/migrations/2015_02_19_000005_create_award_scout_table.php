@@ -14,7 +14,7 @@ class CreateAwardScoutTable extends Migration {
 	{
                 Schema::create('award_scout', function(Blueprint $table) {
                         $table->increments('id');
-                        $table->date('date_started');
+                        $table->date('date_started')->nullable();
                         $table->date('date_board_of_review')->nullable();
                         $table->date('date_sm_conf')->nullable();
                         $table->date('date_completed')->nullable();
