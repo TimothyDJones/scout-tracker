@@ -32,4 +32,14 @@ class Scout extends Person {
     public function adults() {
         return $this->hasMany('Adult', 'adult_scout', 'adult_id');
     }
+    
+    public function currentRank() {
+        $result = DB::table('award_scout')
+                ->where('scout_id', '=', $this->id)
+                ->whereIn('award_status', array('Completed', 'Presented'))
+                ->join('awards', 'award_id', '=', 'awards.id')
+                ->where('awards.award_class_name', '=', 'Rank')
+                ->select('awards.id AS award_id', 'awards.award_name');
+        
+    }
 }
