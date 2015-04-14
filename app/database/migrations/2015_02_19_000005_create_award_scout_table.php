@@ -14,7 +14,11 @@ class CreateAwardScoutTable extends Migration {
 	{
                 Schema::create('award_scout', function(Blueprint $table) {
                         $table->increments('id');
-                        $table->date('date_completed');
+                        $table->date('date_started');
+                        $table->date('date_board_of_review')->nullable();
+                        $table->date('date_sm_conf')->nullable();
+                        $table->date('date_completed')->nullable();
+                        $table->enum('award_status', array('Started', 'Partial', 'Completed', 'Presented'))->default('Started');  // 'Started' = Scout has filled out/turned in MB blue card.
                         $table->unsignedInteger('award_id');   // Award earned (merit badge or rank)
                         $table->foreign('award_id')
                                 ->references('id')

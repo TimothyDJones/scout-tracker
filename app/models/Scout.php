@@ -6,7 +6,7 @@ class Scout extends Person {
     
     public function ranks() {
         return $this->belongsToMany('Rank', 'award_scout', 'scout_id', 'award_id')
-                ->withPivot('date_completed', 'approver_id')
+                ->withPivot('date_completed', 'approver_id', 'date_board_of_review', 'date_sm_conf', 'award_status')
                 ->join('persons AS approver', 'approver_id', '=', 'approver.id')
                 ->select('awards.*', 'date_completed', 'approver_id', 
                         'approver.last_name AS pivot_approver_last_name',
@@ -15,7 +15,7 @@ class Scout extends Person {
     
     public function meritBadges() {
         return $this->hasMany('MeritBadge', 'award_scout', 'award_id')
-                ->withPivot('date_completed', 'approver_id');        
+                ->withPivot('date_completed', 'approver_id', 'date_started', 'award_status');        
     }
     
     public function rankRequirements() {
