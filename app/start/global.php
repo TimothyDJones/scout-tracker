@@ -79,3 +79,8 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+ * Load database query logger.
+ */
+require_once app_path() . '/lib/utility/DbQueryLogger.php';
