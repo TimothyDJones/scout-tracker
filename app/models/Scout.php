@@ -39,7 +39,13 @@ class Scout extends Person {
                 ->whereIn('award_status', array('Completed', 'Presented'))
                 ->join('awards', 'award_id', '=', 'awards.id')
                 ->where('awards.award_class_name', '=', 'Rank')
-                ->select('awards.id AS award_id', 'awards.award_name');
+                ->selectRaw('MAX(`awards`.`id`) AS award_id')
+                ->get();
         
+        $rank = Rank::find($result[0]->award_id);
+        
+        Log::debug('Scout::currentRank() query result: ' . print_r($result, TRUE));
+        
+        return $rank;
     }
 }

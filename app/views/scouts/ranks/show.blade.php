@@ -2,6 +2,7 @@
 
     <div class="row">
         <h2>{{ $award_type . " Advancement History for " . $scout->first_name . ' ' . $scout->last_name }}</h2>
+        <h3>Current Rank: <strong>{{ $scout->currentRank()->award_name }}</strong></h3>
     </div>
 
     <div class="row">
