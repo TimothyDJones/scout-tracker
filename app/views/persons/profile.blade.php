@@ -1,7 +1,7 @@
 @section('main')
     <div class="row">
         <div class="col-md-10">
-            <h2>Profile for {{ $person->first_name }}&nbsp;{{ $person->last_name }} ({{ $person->class_name }})</h2>
+            <h2>Profile for {{ $person->first_name }}&nbsp;{{ $person->last_name }} ({{ $person->person_class_name }})</h2>
         </div>
         <div class="col-md-2">
         </div>
@@ -38,6 +38,9 @@
         @endif
         <div class="col-md-4">
             <h2>Other details (TBD)</h2>
+            @if ( $person->person_class_name == 'Scout' )
+            <p>Current Rank:  {{-- $person->currentRank->award_name --}}</p>
+            @endif
         </div>
     </div>
 @stop
