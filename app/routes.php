@@ -32,6 +32,7 @@ Route::get('persons/changePassword/{persons?}', array('as' => 'changePassword', 
 Route::post('persons/updatePassword/{persons}', array('as' => 'updatePassword', 'uses' => 'PersonsController@updatePassword'))->before('auth');
 Route::get('scouts/court-of-honor', array('as' => 'court-of-honor', 'uses' => 'ScoutsController@coh'));
 Route::get('scouts/search', array('as' => 'search', 'uses' => 'ScoutsController@search'));
+Route::post('scouts/{persons}/rank/{ranks}', array('as' => 'scout-rank-update', 'uses' => 'ScoutsController@update'));
 
 Route::resource('persons', 'PersonsController');
 Route::resource('scouts', 'ScoutsController');
