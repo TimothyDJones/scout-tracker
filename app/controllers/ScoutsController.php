@@ -134,6 +134,17 @@ class ScoutsController extends \BaseController {
             
             return $scoutRanks;
         }
+        
+        private function getAllRanksList() {
+            $allRanksList = array();
+            $allRanks = Rank::where('id', '>', 0)->orderBy('rank_sort_sequence', 'ASC')->get();
+            
+            foreach ( $allRanks as $rank ) {
+                $allRanksList[$rank->id] = $rank->award_name;
+            }
+            
+            return $allRanksList;
+        }
 
 
 }
