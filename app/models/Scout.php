@@ -6,11 +6,13 @@ class Scout extends Person {
     
     public function ranks() {
         return $this->belongsToMany('Rank', 'award_scout', 'scout_id', 'award_id')
-                ->withPivot('date_completed', 'approver_id', 'date_board_of_review', 'date_sm_conf', 'award_status')
+                ->withPivot('date_completed', 'approver_id', 'date_board_of_review', 'date_sm_conf', 'award_status', 'id')
                 ->join('persons AS approver', 'approver_id', '=', 'approver.id')
                 ->select('awards.*', 'date_completed', 'approver_id', 
+                        'date_board_of_review', 'date_sm_conf', 'award_status',
                         'approver.last_name AS pivot_approver_last_name',
-                        'approver.first_name AS pivot_approver_first_name'); 
+                        'approver.first_name AS pivot_approver_first_name',
+                        'award_scout.id AS pivot_id'); 
     }
     
     public function meritBadges() {
@@ -40,9 +42,11 @@ class Scout extends Person {
                 ->join('awards', 'award_id', '=', 'awards.id')
                 ->where('awards.award_class_name', '=', 'Rank')
                 ->selectRaw('MAX(`awards`.`id`) AS award_id')
-                ->get();
+                ->pluck('award_id');
+        // Update above query to use "pluck()" method.
+        // See http://www.reddit.com/r/laravel/comments/31yxhg/help_with_an_eloquent_query/cqbw6sh.
         
-        $rank = Rank::find($result[0]->award_id);
+        $rank = Rank::find($result);
         
         Log::debug('Scout::currentRank() query result: ' . print_r($result, TRUE));
         
