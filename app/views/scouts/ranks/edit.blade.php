@@ -1,8 +1,6 @@
 @section('main')
 
-    <div class="row">
-        <h2>{{ $page_title or "Rank Advancement History for " . $person->first_name . ' ' . $person->last_name }}</h2>
-    </div>
+    @include('scouts/partials/_award_heading')
 
         {{ Form::model(new Person, array('route' => ['persons.store'], 'role' => 'form', 'class' => 'form-horizontal')) }}
             {{ Form::hidden('class_name', $class_name) }}
@@ -28,11 +26,23 @@
                                     @if ( !is_null( $rank->pivot->id) )
                                         // We have an existing pivot table row...
                                         // Use Form::model(...)
+                                        {{ Form::model($rank, array('route' => array('scout-rank-update', $scout->id, $rank->id)),
+                                                    'method' => 'POST',
+                                                    'class' => 'inline') }}
+                                        {{ Form::hidden('pivot_id', $rank->pivot->id) }}
                                         <td>{{ $rank->award_name }}</td>
-                                        <td>{{ $rank->pivot->award_status or 'N/A' }}</td>
-                                        <td>{{ $rank->pivot->date_sm_conf or 'N/A' }}</td>
-                                        <td>{{ $rank->pivot->date_board_of_review or 'N/A' }}</td>
-                                        <td>{{ $rank->pivot->date_completed or 'N/A' }}</td>
+                                        <td>{{ Form::select('award_status', 
+                                            array('Started' => 'Started',
+                                                'Partial' => 'Partial',
+                                                'Completed' => 'Completed',
+                                                'Presented' => 'Presented'),
+                                            $$rank->pivot->award_status) }}</td>
+                                        <td>{{ Form::text('date_sm_conf', $rank->pivot->date_sm_conf) }}</td>
+                                        <td>{{ Form::text('date_board_of_review', $rank->pivot->date_board_of_review) }}</td>
+                                        <td>{{ Form::text('date_completed', $rank->pivot->date_completed) }}</td>
+                                        <td>{{ Form::select('approver_id',
+                                                    $adultList,
+                                                    $rank->pivot->approver_id) }}</td>
                                         <td>{{ $rank->pivot->approver_last_name or 'N/A' }}&nbsp;{{ $rank->pivot->approver_first_name or '' }}</td>
                                     
                                     @else
@@ -44,6 +54,6 @@
                                 </tbody>
                             </table>
                         </div>
-    </div>        
+    </div>
 
 @stop

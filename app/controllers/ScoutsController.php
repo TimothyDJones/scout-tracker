@@ -48,7 +48,7 @@ class ScoutsController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Scout $scout
 	 * @return Response
 	 */
 	public function show(Scout $scout)
@@ -64,12 +64,16 @@ class ScoutsController extends \BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Scout $scout
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Scout $scout)
 	{
-		//
+            $rankList = self::buildRankList($scout);
+            $adultList = self::getAdultList();
+            
+            $this->layout->content = View::make('scouts.ranks.edit', compact('scout', 'rankList', 'adultList'))
+                    ->with(array('award_type' => 'Rank'));
 	}
 
 
@@ -79,9 +83,13 @@ class ScoutsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Scout $scout, Rank $rank)
 	{
-		//
+            // Pivot ID only exists if we have existing rank row.
+            // If so, we do an update on the pivot table (Laravel 'attach' method).
+            if ( Input::has('pivot_id') ) {
+                $pivot_id = Input::get('pivot_id');
+            }
 	}
 
 
@@ -122,7 +130,7 @@ class ScoutsController extends \BaseController {
                         $allRanks->filter( function($item) use ($i) {
                             return $item->id == $i;
                         })->first()
-                        );
+                    );
                 
                 /*
                 if ( $scout->ranks[$i]->id == $allRanks[$i]->id ) {
@@ -144,6 +152,16 @@ class ScoutsController extends \BaseController {
             }
             
             return $allRanksList;
+        }
+        
+        private function getAdultList() {
+            $adultList = array();
+            
+            foreach ( Adult::all() as $adult ) {
+                $adultList[$adult->id] = $adult->first_name . ' ' . $adult->last_name;
+            }
+            
+            return $adultList;
         }
 
 
