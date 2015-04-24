@@ -147,8 +147,8 @@ class PersonsController extends \BaseController {
                         ->with(array('updateFlag' => TRUE,
                             'class_name' => $person->class_name));
             } else {
-                return Redirect::route('customer.show', array('id' => $person->id))
-                        ->with(array('message' => 'No permissions to edit ' . $person->first_name . ' ' . $person->last_name));
+                return Redirect::route('persons.show', array('id' => $person->id))
+                        ->with(array('message' => 'No permissions to edit ' . $person->first_name . ' ' . $person->last_name . '.'));
             }
 	}
 
