@@ -19,8 +19,6 @@
                                     @foreach( $rankList as $rank )
                                     <tr>
                                     @if ( !empty( $rank->pivot->id) )
-                                        // We have an existing pivot table row...
-                                        // Use Form::model(...)
                                         {{ Form::model($rank, array('route' => array('scout-rank-update', $scout->id, $rank->id),
                                                     'method' => 'POST',
                                                     'class' => 'inline')) }}
@@ -40,24 +38,23 @@
                                                     $rank->pivot->approver_id) }}</td>
                                     
                                     @else
-                                        // We need to create a new pivot table row...
-                                        // Use Form::open(...)
                                         {{ Form::model(new Rank, array('route' => array('scout-rank-update', $scout->id, $rank->id),
                                                     'method' => 'POST',
                                                     'class' => 'inline')) }}
                                         <td>{{ $rank->award_name }}</td>
                                         <td>{{ Form::select('award_status', 
-                                            array('Started' => 'Started',
+                                            array('[NONE]' => '',
+                                                'Started' => 'Started',
                                                 'Partial' => 'Partial',
                                                 'Completed' => 'Completed',
                                                 'Presented' => 'Presented'),
-                                            NULL) }}</td>
+                                            '[NONE]') }}</td>
                                         <td>{{ Form::text('date_sm_conf') }}</td>
                                         <td>{{ Form::text('date_board_of_review') }}</td>
                                         <td>{{ Form::text('date_completed') }}</td>
                                         <td>{{ Form::select('approver_id',
-                                                    $adultList,
-                                                    NULL) }}</td>                                        
+                                                    array_merge(array('[NONE]' => ''), $adultList),
+                                                    '[NONE]') }}</td>                                        
                                     @endif
                                     </tr>
                                     @endforeach
