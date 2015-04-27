@@ -52,4 +52,14 @@ class Scout extends Person {
         
         return $rank;
     }
+    
+    public function nextRank() {
+        $currentRank = self::currentRank();
+        $nextRank = Rank::where('rank_sort_sequence', '=', ($currentRank->rank_source_sequence + 1) )
+                        ->get()->first();
+        
+        Log::debug('Scout::nextRank() query result: ' . print_r($nextRank, TRUE));
+        
+        return $nextRank;
+    }
 }
