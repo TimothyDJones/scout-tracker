@@ -124,6 +124,7 @@ return array(
                 'storage\StorageServiceProvider',
                 'Monarobase\CountryList\CountryListServiceProvider',
                 'Propaganistas\LaravelPhone\LaravelPhoneServiceProvider',
+                'Smalldogs\Html5inputs\Html5InputsServiceProvider',
 
 	),
 
@@ -167,7 +168,8 @@ return array(
 		'Eloquent'        => 'Illuminate\Database\Eloquent\Model',
 		'Event'           => 'Illuminate\Support\Facades\Event',
 		'File'            => 'Illuminate\Support\Facades\File',
-		'Form'            => 'Illuminate\Support\Facades\Form',
+//		'Form'            => 'Illuminate\Support\Facades\Form',
+                'Form'            => 'Smalldogs\Html5inputs\Html5InputsFacade',
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
 		'HTML'            => 'Illuminate\Support\Facades\HTML',
 		'Input'           => 'Illuminate\Support\Facades\Input',

@@ -14,7 +14,8 @@
                 "barryvdh/laravel-debugbar": "1.*",
                 "fzaninotto/faker": "1.*",
 		"monarobase/country-list": "1.*",
-		"propaganistas/laravel-phone": "1.*"
+		"propaganistas/laravel-phone": "1.*",
+		"smalldogs/html5inputs": "2.*"
 	},
 	"autoload": {
 		"classmap": [
