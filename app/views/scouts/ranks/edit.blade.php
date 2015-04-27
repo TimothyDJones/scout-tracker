@@ -17,8 +17,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach( $rankList as $rank )
-                                    <tr>
                                     @if ( !empty( $rank->pivot->id) )
+                                    <tr>
                                         {{ Form::model($rank, array('route' => array('scout-rank-update', $scout->id, $rank->id),
                                                     'method' => 'POST',
                                                     'class' => 'inline')) }}
@@ -36,8 +36,9 @@
                                         <td>{{ Form::select('approver_id',
                                                     $adultList,
                                                     $rank->pivot->approver_id) }}</td>
-                                    
-                                    @else
+                                    </tr>
+                                    @elseif ( $rank->id === $scout->nextRank()->id )
+                                    <tr>
                                         {{ Form::model(new Rank, array('route' => array('scout-rank-update', $scout->id, $rank->id),
                                                     'method' => 'POST',
                                                     'class' => 'inline')) }}
@@ -54,9 +55,10 @@
                                         <td>{{ Form::text('date_completed') }}</td>
                                         <td>{{ Form::select('approver_id',
                                                     array_merge(array('[NONE]' => ''), $adultList),
-                                                    '[NONE]') }}</td>                                        
-                                    @endif
+                                                    '[NONE]') }}</td>
                                     </tr>
+                                    @endif
+                                    
                                     @endforeach
                                 </tbody>
                             </table>
