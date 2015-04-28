@@ -74,7 +74,7 @@ class Person extends \BaseModel
             $this->attributes['last_name'] = ucwords($value);
         }
         
-        public function setEmailAddress($value) {
+        public function setEmailAddressAttribute($value) {
             $this->attributes['email_address'] = strtolower($value);
         }
         
