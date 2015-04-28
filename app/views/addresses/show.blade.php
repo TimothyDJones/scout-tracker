@@ -12,7 +12,7 @@
             <h3>This address is currently used for these individuals:</h3>
             @foreach ( $address->persons as $person )
             <p>
-                {{ $person->first_name }}&nbsp;{{ $person->last_name }} ({{ $person->class_name }})
+                {{ $person->full_name }} ({{ $person->person_class_name }})
             </p>
             @endforeach            
         </div>

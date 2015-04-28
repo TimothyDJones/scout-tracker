@@ -18,7 +18,7 @@ class PersonsController extends \BaseController {
             //return $this->person->all();
             //return Person::all();
             if ( Utility::isAdminUser() ) {
-                $query = Person::orderBy('class_name', 'ASC')
+                $query = Person::orderBy('person_class_name', 'ASC')
                         ->orderBy('last_name', 'ASC');
                 $persons = $query->remember(5)->get();
                 
@@ -39,12 +39,12 @@ class PersonsController extends \BaseController {
 	 */
 	public function create()
 	{
-            $personClass = Input::get('class_name');
+            $personClass = Input::get('person_class_name');
             if ( !$personClass ) $personClass = 'Scout';
             // Get list of addresses to display.
             $addresses = Address::selectList();
             $this->layout->content = View::make('persons.create', 
-                    array('class_name' => $personClass, 
+                    array('person_class_name' => $personClass, 
                         'updateFlag' => FALSE, 
                         'addressList' => $addresses)
                     );
@@ -58,7 +58,7 @@ class PersonsController extends \BaseController {
 	 */
 	public function store()
 	{
-            $input = array_except(Input::all(), array('class_name', 'admin_ind'));
+            $input = array_except(Input::all(), array('person_class_name', 'admin_ind'));
             
             // We must has *BOTH* 'password' and 'password_confirmation' so that validator works!
             //$input['password'] = Hash::make($input['password']);
@@ -81,7 +81,7 @@ class PersonsController extends \BaseController {
                     $input['password'] = Hash::make($input['password']);
                 }
                 
-                $class_name = Input::get('class_name');
+                $class_name = Input::get('person_class_name');
                 switch ($class_name) {
                     case 'Adult':
                         $person = new Adult($input);
@@ -95,7 +95,7 @@ class PersonsController extends \BaseController {
                         $person->admin_ind = FALSE;
                         break;
                     default:        // 'Scout' is default.
-                        $input['class_name'] = 'Scout';
+                        $input['person_class_name'] = 'Scout';
                         $person = new Scout($input);
                         $person->admin_ind = FALSE;
                 }                
@@ -106,7 +106,7 @@ class PersonsController extends \BaseController {
                     return Redirect::route('profile', array($person->id))->with(array('message' => $message));
                 }
             } else {  // If validation fails, redirect to previous page.
-                return Redirect::route('persons.create', array('class_name' => Input::get('class_name')))
+                return Redirect::route('persons.create', array('person_class_name' => Input::get('person_class_name')))
                         ->withInput()
                         ->withErrors( $validator->errors() )
                         ->with(array('message' => 'Validation error.', 
@@ -145,10 +145,10 @@ class PersonsController extends \BaseController {
                 $addressList = Address::selectList();
                 $this->layout->content = View::make('persons.edit', compact('person', 'addressList'))
                         ->with(array('updateFlag' => TRUE,
-                            'class_name' => $person->class_name));
+                            'person_class_name' => $person->person_class_name));
             } else {
                 return Redirect::route('persons.show', array('id' => $person->id))
-                        ->with(array('message' => 'No permissions to edit ' . $person->first_name . ' ' . $person->last_name . '.'));
+                        ->with(array('message' => 'No permissions to edit ' . $person->full_name . '.'));
             }
 	}
 
@@ -171,7 +171,7 @@ class PersonsController extends \BaseController {
             if ( $validator->passes() ) {
                 if ( $person->updateUniques() )
                     return Redirect::route('persons.show', $person->id)
-                        ->with('message', 'Details for "' . $person->first_name . ' ' . $person->last_name . '" updated.');
+                        ->with('message', 'Details for "' . $person->full_name . '" updated.');
                 else
                     return Redirect::route('persons.edit', array_get($person->getOriginal(), 'id'))
                         ->withInput()->withErrors( $person->errors() );
@@ -198,7 +198,7 @@ class PersonsController extends \BaseController {
                 $this->layout->content = View::make('persons.login');
             } else {
                 return Redirect::route('profile', array('id' => Auth::id()))
-                        ->with(array('message' => 'You are already logged in.'));
+                        ->with(array('message' => 'You (' . $person->full_name . ') are already logged in.'));
             }
         }
         
@@ -267,7 +267,7 @@ class PersonsController extends \BaseController {
             }
             
             return Redirect::route('profile', array('id' => $person->id))
-                    ->with(array( 'message' => 'No permissions to change password for "' . $person->first_name . ' ' . $person->last_name . '".' ));
+                    ->with(array( 'message' => 'No permissions to change password for "' . $person->full_name . '".' ));
         }
 
 

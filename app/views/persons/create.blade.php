@@ -16,7 +16,7 @@
     </div>
 
         {{ Form::model(new Person, array('route' => ['persons.store'], 'role' => 'form', 'class' => 'form-horizontal')) }}
-            {{ Form::hidden('class_name', $class_name) }}
+            {{ Form::hidden('person_class_name', $class_name) }}
             @include('persons/partials/_form', array('submit_button_label' => 'Create'))
 	{{ Form::close() }}
 

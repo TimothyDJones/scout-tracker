@@ -1,6 +1,8 @@
 @section('main')
     <h2>{{ $page_title }} Index View</h2>
     
+    {{ Kint::dump($persons) }}
+    
     <div class="row">
         <div class="col-md-6 col-xs-6">
                         <div class="table-responsive">
@@ -18,9 +20,9 @@
                                 <tbody>
                                 @foreach ( $persons as $person )
                                     <tr>
-                                        @if ( $person->class_name == 'Scout' )
+                                        @if ( $person->person_class_name == 'Scout' )
                                             <td>
-                                                {{ $person->first_name }}&nbsp;{{ $person->last_name}}
+                                                {{ $person->full_name }}
                                             </td>
                                             <td>
                                                 {{ link_to_route('profile', 'Details', array('id' => $person->id), array('class' => 'btn btn-info btn-sm')) }}&nbsp;
@@ -51,9 +53,9 @@
                                 <tbody>
                                 @foreach ( $persons as $person )
                                     <tr>
-                                        @if ( $person->class_name == 'Adult' )
+                                        @if ( $person->person_class_name == 'Adult' )
                                             <td>
-                                                {{ $person->first_name }}&nbsp;{{ $person->last_name}}
+                                                {{ $person->full_name }}
                                                 @if ( $person->admin_ind == TRUE )
                                                 <strong>*</strong>
                                                 @endif                                            

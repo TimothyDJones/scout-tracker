@@ -1,7 +1,7 @@
 @section('main')
     <div class="row">
         <div class="col-md-10">
-            <h2>Profile for {{ $person->first_name }}&nbsp;{{ $person->last_name }} ({{ $person->person_class_name }})</h2>
+            <h2>Profile for {{ $person->full_name }} ({{ $person->person_class_name }})</h2>
         </div>
         <div class="col-md-2">
         </div>
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-4">
             <h3>Account Details</h3>
-            <p>{{ $person->first_name }} {{ $person->last_name }}</p>
+            <p>{{ $person->full_name }}</p>
             <p>{{ $person->email_address }}</p>
             <p>{{ $person->primary_phone }}</p>
             @if ( $person->secondary_phone )
@@ -21,7 +21,7 @@
             {{ link_to_route('changePassword', 'Change Password', array('person' => $person->id), array('class' => 'btn btn-primary')) }}
             @endif
         </div>
-        @if ( !is_null($person->address) )
+        @if ( !empty($person->address) )
         <div class="col-md-4">
             <h3>Address Details</h3>
             <p>{{ $person->address->addr1 }}</p>
@@ -39,7 +39,7 @@
         <div class="col-md-4">
             <h2>Other details (TBD)</h2>
             @if ( $person->person_class_name == 'Scout' )
-            <p>Current Rank:  {{-- $person->currentRank->award_name --}}</p>
+            <p>Current Rank:  {{ $person->currentRank()->award_name }}</p>
             @endif
         </div>
     </div>

@@ -1,8 +1,8 @@
 @section('main')
-        <h2>Change Password for {{ $person->first_name }}&nbsp;{{ $person->last_name }} ({{ $person->email_address }})</h2>
+        <h2>Change Password for {{ $person->full_name }} ({{ $person->email_address }})</h2>
 
         {{ Form::model($person, array('method' => 'PATCH', 'route' => array('updatePassword', $person->id), 'role' => 'form', 'class' => 'form-horizontal')) }}
-            {{ Form::hidden('class_name', $person->class_name) }}
+            {{ Form::hidden('class_name', $person->person_class_name) }}
             {{ Form::hidden('email_address', $person->email_address) }}
             <div class="col-md-9 col-xs-9">
                 <div class="form-group floating-label-form-group">
