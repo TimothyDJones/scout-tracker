@@ -73,7 +73,7 @@
                         {{ Form::select('address_id', $addressList, null, array('class' => 'form-control input-sm floatlabel', )) }}
                     </div>
                 </div>
-                @if ( $class_name == 'Adult' )
+                @if ( $person_class_name == 'Adult' )
                 <div class="form-group floating-label-form-group">
                     {{ Form::label('admin_ind', 'Administrator?', array('class' => 'control-label col-xs-5')) }}
                     <div class="input-group col-xs-6">
