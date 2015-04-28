@@ -82,6 +82,10 @@ class Person extends \BaseModel
             return $this->belongsTo('Address');
         }
         
+        public function getFullNameAttribute() {
+            return ucwords($this->first_name) . ' ' . ucwords($this->last_name);
+        }
+        
         public function getAuthIdentifier() {
             return $this->getKey();
         }
@@ -103,7 +107,11 @@ class Person extends \BaseModel
         }
         
         public function getReminderEmail() {
-            return $this->email;
+            return $this->email_address;
+        }
+        
+        public function getEmailAttribute() {
+            return $this->email_address;
         }
 
 }
