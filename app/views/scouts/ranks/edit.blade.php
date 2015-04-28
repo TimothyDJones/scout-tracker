@@ -30,9 +30,9 @@
                                                 'Completed' => 'Completed',
                                                 'Presented' => 'Presented'),
                                             $rank->pivot->award_status) }}</td>
-                                        <td>{{ Form::date('date_sm_conf', $rank->pivot->date_sm_conf) }}</td>
-                                        <td>{{ Form::date('date_board_of_review', $rank->pivot->date_board_of_review) }}</td>
-                                        <td>{{ Form::date('date_completed', $rank->pivot->date_completed) }}</td>
+                                        <td>{{ Form::text('date_sm_conf', $rank->pivot->date_sm_conf, array('class' => 'my-datepicker')) }}</td>
+                                        <td>{{ Form::text('date_board_of_review', $rank->pivot->date_board_of_review, array('class' => 'my-datepicker')) }}</td>
+                                        <td>{{ Form::text('date_completed', $rank->pivot->date_completed, array('class' => 'my-datepicker')) }}</td>
                                         <td>{{ Form::select('approver_id',
                                                     $adultList,
                                                     $rank->pivot->approver_id) }}</td>
@@ -50,9 +50,9 @@
                                                 'Completed' => 'Completed',
                                                 'Presented' => 'Presented'),
                                             '[NONE]') }}</td>
-                                        <td>{{ Form::date('date_sm_conf') }}</td>
-                                        <td>{{ Form::date('date_board_of_review') }}</td>
-                                        <td>{{ Form::date('date_completed') }}</td>
+                                        <td>{{ Form::text('date_sm_conf', NULL, array('class' => 'my-datepicker')) }}</td>
+                                        <td>{{ Form::text('date_board_of_review', NULL, array('class' => 'my-datepicker')) }}</td>
+                                        <td>{{ Form::text('date_completed', NULL, array('class' => 'my-datepicker')) }}</td>
                                         <td>{{ Form::select('approver_id',
                                                     array_merge(array('[NONE]' => ''), $adultList),
                                                     '[NONE]') }}</td>
@@ -64,5 +64,15 @@
                             </table>
                         </div>
     </div>
+    
+    <script>
+        // Apply jQuery Datepicker extension to date fields.
+        $(function() {
+            $.datepick.setDefaults({pickerClass: 'my-datepicker',
+                dateFormat: 'yyyy-mm-dd',
+                maxDate: +7});
+            $(".my-datepicker").datepick();
+        });
+    </script>          
 
 @stop
