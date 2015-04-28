@@ -6,3 +6,6 @@
         {{ HTML::style('css/newStyles.css') }}
 	{{ HTML::script('js/jquery-1.11.1.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
+        {{ HTML::style('js/jquery.datepick.package/smoothness.datepick.css') }}
+        {{ HTML::script('js/jquery.datepick.package/jquery.plugin.min.js') }}
+        {{ HTML::script('js/jquery.datepick.package/jquery.datepick.min.js') }}
