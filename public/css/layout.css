@@ -120,3 +120,7 @@ header .navbar-collapse  ul.navbar-nav {
   }
 }
 
+.form-input-date {
+    min-width: 0;
+    width: 88px;
+}

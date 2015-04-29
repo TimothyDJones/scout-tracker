@@ -31,13 +31,13 @@
                                                 'Completed' => 'Completed',
                                                 'Presented' => 'Presented'),
                                             $rank->pivot->award_status) }}</td>
-                                        <td>{{ Form::text('date_sm_conf', $rank->pivot->date_sm_conf, array('class' => 'my-datepicker')) }}</td>
-                                        <td>{{ Form::text('date_board_of_review', $rank->pivot->date_board_of_review, array('class' => 'my-datepicker')) }}</td>
-                                        <td>{{ Form::text('date_completed', $rank->pivot->date_completed, array('class' => 'my-datepicker')) }}</td>
+                                        <td>{{ Form::text('date_sm_conf', $rank->pivot->date_sm_conf, array('class' => 'my-datepicker form-input-date')) }}</td>
+                                        <td>{{ Form::text('date_board_of_review', $rank->pivot->date_board_of_review, array('class' => 'my-datepicker form-input-date')) }}</td>
+                                        <td>{{ Form::text('date_completed', $rank->pivot->date_completed, array('class' => 'my-datepicker form-input-date')) }}</td>
                                         <td>{{ Form::select('approver_id',
                                                     $adultList,
                                                     $rank->pivot->approver_id) }}</td>
-                                        <td>{{ Form::submit('Update', array('class' => 'btn btn-primary pull-right')) }}</td>
+                                        <td>{{ Form::submit('Update', array('class' => 'btn btn-sm btn-primary pull-right')) }}</td>
                                     </tr>
                                     @elseif ( $rank->id === $scout->nextRank()->id )
                                     <tr>
@@ -52,13 +52,13 @@
                                                 'Completed' => 'Completed',
                                                 'Presented' => 'Presented'),
                                             '[NONE]') }}</td>
-                                        <td>{{ Form::text('date_sm_conf', NULL, array('class' => 'my-datepicker')) }}</td>
-                                        <td>{{ Form::text('date_board_of_review', NULL, array('class' => 'my-datepicker')) }}</td>
-                                        <td>{{ Form::text('date_completed', NULL, array('class' => 'my-datepicker')) }}</td>
+                                        <td>{{ Form::text('date_sm_conf', NULL, array('class' => 'my-datepicker form-input-date')) }}</td>
+                                        <td>{{ Form::text('date_board_of_review', NULL, array('class' => 'my-datepicker form-input-date')) }}</td>
+                                        <td>{{ Form::text('date_completed', NULL, array('class' => 'my-datepicker form-input-date')) }}</td>
                                         <td>{{ Form::select('approver_id',
                                                     array_merge(array('[NONE]' => ''), $adultList),
                                                     '[NONE]') }}</td>
-                                        <td>{{ Form::submit('Add', array('class' => 'btn btn-info pull-right')) }}</td>
+                                        <td>{{ Form::submit('Add', array('class' => 'btn btn-sm btn-info pull-right')) }}</td>
                                     </tr>
                                     @endif
                                     
