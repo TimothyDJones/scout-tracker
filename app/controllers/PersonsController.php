@@ -127,8 +127,14 @@ class PersonsController extends \BaseController {
                 $person = Person::find(Auth::id());
             }
             
+            $scout = new Scout();
+            if ( $person->person_class_name == 'Scout' ) {
+                $scout = Scout::find($person->id);
+                        // ->with('currentRank', 'nextRank');
+            }
+            
             //return $person;
-            $this->layout->content = View::make('persons.profile', compact('person'));
+            $this->layout->content = View::make('persons.profile', compact('person', 'scout'));
 	}
 
 

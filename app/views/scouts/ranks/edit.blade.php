@@ -13,6 +13,7 @@
                                         <th>BOR Date</th>
                                         <th>Date Completed</th>
                                         <th>Approved By</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,6 +37,7 @@
                                         <td>{{ Form::select('approver_id',
                                                     $adultList,
                                                     $rank->pivot->approver_id) }}</td>
+                                        <td>{{ Form::submit('Update', array('class' => 'btn btn-primary pull-right')) }}</td>
                                     </tr>
                                     @elseif ( $rank->id === $scout->nextRank()->id )
                                     <tr>
@@ -56,6 +58,7 @@
                                         <td>{{ Form::select('approver_id',
                                                     array_merge(array('[NONE]' => ''), $adultList),
                                                     '[NONE]') }}</td>
+                                        <td>{{ Form::submit('Add', array('class' => 'btn btn-info pull-right')) }}</td>
                                     </tr>
                                     @endif
                                     

@@ -35,6 +35,12 @@ class Scout extends Person {
         return $this->hasMany('Adult', 'adult_scout', 'adult_id');
     }
     
+    /**
+     * Return the current rank of this Scout.
+     * Returns empty Rank model instance if nothing found.
+     * 
+     * @return Rank model instance
+     */
     public function currentRank() {
         $result = DB::table('award_scout')
                 ->where('scout_id', '=', $this->id)
@@ -46,13 +52,25 @@ class Scout extends Person {
         // Update above query to use "pluck()" method.
         // See http://www.reddit.com/r/laravel/comments/31yxhg/help_with_an_eloquent_query/cqbw6sh.
         
+        $rank = new Rank();
         $rank = Rank::find($result);
         
         Log::debug('Scout::currentRank() query result: ' . print_r($result, TRUE));
         
-        return $rank;
+        if ( !empty($rank->id) ) {
+            return $rank;
+        } else {
+            return new Rank();
+        }
     }
     
+    /**
+     * Return the next rank of this Scout.
+     * Uses the currentRank() method.
+     * Returns empty Rank model instance if nothing found.
+     * 
+     * @return Rank model instance
+     */
     public function nextRank() {
         $currentRank = self::currentRank();
         $nextRank = Rank::where('rank_sort_sequence', '=', ($currentRank->rank_source_sequence + 1) )
@@ -60,6 +78,10 @@ class Scout extends Person {
         
         Log::debug('Scout::nextRank() query result: ' . print_r($nextRank, TRUE));
         
-        return $nextRank;
+        if ( !empty($nextRank->id) ) {
+            return $nextRank;
+        } else {
+            return new Rank();
+        }
     }
 }
